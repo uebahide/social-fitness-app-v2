@@ -7,6 +7,7 @@ export async function getExercises(filter: { field: string; value: string } | nu
 
   //FILTER
   if (filter) query = query.eq(filter?.field, filter?.value);
+
   const { data, error } = await query;
 
   if (error) {
