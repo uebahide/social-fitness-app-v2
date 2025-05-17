@@ -13,6 +13,32 @@ export async function login({ email, password }: { email: string; password: stri
   return data;
 }
 
+export async function register({
+  name,
+  email,
+  password,
+}: {
+  name: string;
+  email: string;
+  password: string;
+}) {
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: {
+      data: {
+        name,
+      },
+    },
+  });
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+}
+
 export async function logout() {
   const { error } = await supabase.auth.signOut();
   if (error) {

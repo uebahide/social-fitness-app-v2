@@ -2,8 +2,12 @@
 import { Exercise } from "../features/exercises/types/Exercise";
 import { supabase } from "./supabase";
 
-export async function getExercises() {
-  const { data, error } = await supabase.from("exercises").select("*");
+export async function getExercises(filter: { field: string; value: string } | null) {
+  let query = supabase.from("exercises").select("*");
+
+  //FILTER
+  if (filter) query = query.eq(filter?.field, filter?.value);
+  const { data, error } = await query;
 
   if (error) {
     throw new Error(error.message);
@@ -25,13 +29,7 @@ export async function createExercise(newExercise: Exercise) {
   return data;
 }
 
-export async function updateExercise({
-  newExercise,
-  id,
-}: {
-  newExercise: Exercise;
-  id: number;
-}) {
+export async function updateExercise({ newExercise, id }: { newExercise: Exercise; id: number }) {
   const { data, error } = await supabase
     .from("exercises")
     .update(newExercise)

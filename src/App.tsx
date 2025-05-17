@@ -57,7 +57,14 @@ export default function App() {
               </ProtectAuth>
             }
           />
-          <Route path="/register" element={<Register />} />
+          <Route
+            path="/register"
+            element={
+              <ProtectAuth>
+                <Register />
+              </ProtectAuth>
+            }
+          />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>

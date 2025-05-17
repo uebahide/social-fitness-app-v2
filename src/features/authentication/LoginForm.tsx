@@ -1,27 +1,20 @@
 import { useForm } from "react-hook-form";
 import { validEmailPattern } from "../../utils/helpers";
 import Button from "../../ui/Button";
-import styled from "styled-components";
 import Input from "../../ui/Input";
 import Label from "../../ui/Label";
 import { useLogin } from "./useLogin";
 import SpinnerMini from "../../ui/SpinnerMini";
+import Form from "../../ui/Form";
+import FormRowVertical from "../../ui/FormRowVertical";
+import { NavLink } from "react-router-dom";
+import styled from "styled-components";
 
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  background-color: white;
-  border-radius: var(--border-radius-md);
-  padding: 3rem 4rem;
-  gap: 1rem;
-  border: 1px solid var(--color-grey-100);
-`;
-
-const FormRowVertical = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding-top: 1rem;
+const StyledNavLink = styled(NavLink)`
+  color: var(--color-grey-500);
+  text-align: center;
+  margin-top: 1.4rem;
+  text-decoration: underline;
 `;
 
 type FormValues = {
@@ -40,7 +33,7 @@ export default function LoginForm() {
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <FormRowVertical>
-        <Label>Your email</Label>
+        <Label>Email address</Label>
         <Input
           {...register("email", {
             required: "This field is required",
@@ -60,6 +53,7 @@ export default function LoginForm() {
           {isLoggingin ? <SpinnerMini /> : "Log in"}
         </Button>
       </FormRowVertical>
+      <StyledNavLink to="/register">You don't have your account yet?</StyledNavLink>
     </Form>
   );
 }

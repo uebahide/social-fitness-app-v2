@@ -9,8 +9,9 @@ export function useLogin() {
   const { isPending: isLoggingin, mutate: login } = useMutation({
     mutationFn: loginApi,
     onSuccess: (data) => {
+      const name = data.user.user_metadata.name;
       navigate("/", { replace: true });
-      toast.success(`Welcome back X🏃‍➡️`);
+      toast.success(`Welcome back ${name}🎉🏃‍➡️`);
       queryClient.setQueryData(["user"], data.user);
     },
     onError: (error) => {
